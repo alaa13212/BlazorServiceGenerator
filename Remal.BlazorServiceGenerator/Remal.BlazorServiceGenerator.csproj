@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <IsRoslynComponent>true</IsRoslynComponent>
+
+        <RootNamespace>Remal.BlazorServiceGenerator</RootNamespace>
+        <AssemblyName>Remal.BlazorServiceGenerator</AssemblyName>
+
+
+        <PackageId>Remal.BlazorServiceGenerator</PackageId>
+        <Version>0.1.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        
+        <Title>BlazorService Generator</Title>
+        <Description>Source generator that reduce boilerplate code needed to make Web compatible blazor services.</Description>
+        <Authors>Ali Albarrak</Authors>
+        <Company>Remal Ventures</Company>
+
+        <PackageProjectUrl>https://github.com/alaa13212/BlazorServiceGenerator</PackageProjectUrl>
+        <Copyright>MIT License 2024, $(Authors)</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/alaa13212/BlazorServiceGenerator</RepositoryUrl>
+        <PackageTags>source-generator;blazor;blazor-web;best-practices;web;boilerplate;aspnetcore;blazor-wasm;webassembly</PackageTags>
+        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="true"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" PrivateAssets="true"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Remove="AnalyzerReleases.Unshipped.md" />
+    </ItemGroup>
+</Project>
