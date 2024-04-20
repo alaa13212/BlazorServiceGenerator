@@ -15,8 +15,9 @@
 
 
         <PackageId>Remal.BlazorServiceGenerator</PackageId>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
         
         <Title>BlazorService Generator</Title>
         <Description>Source generator that reduce boilerplate code needed to make Web compatible blazor services.</Description>
@@ -26,7 +27,7 @@
         <PackageProjectUrl>https://github.com/alaa13212/BlazorServiceGenerator</PackageProjectUrl>
         <Copyright>MIT License 2024, $(Authors)</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <RepositoryUrl>https://github.com/alaa13212/BlazorServiceGenerator</RepositoryUrl>
         <PackageTags>source-generator;blazor;blazor-web;best-practices;web;boilerplate;aspnetcore;blazor-wasm;webassembly</PackageTags>
         
@@ -37,11 +38,16 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="true"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" PrivateAssets="true"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Remove="AnalyzerReleases.Unshipped.md" />
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="..\LICENSE" Pack="true" PackagePath=""/>
+        <None Include="..\README.md" Pack="true" PackagePath=""/>
     </ItemGroup>
 </Project>
