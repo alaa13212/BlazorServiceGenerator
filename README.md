@@ -1,13 +1,13 @@
 ﻿# Blazor Service Source Generator
-Source generator that reduce boilerplate code needed to make Web compatible blazor services.
+Source generator that reduce boilerplate code needed to make WebAssembly compatible blazor services.
 
 # Installation
 You can install using NuGet
 ```shell
-dotnet add package Remal.BlazorServiceGenerator --version 0.1.2
+dotnet add package Remal.BlazorServiceGenerator --version 0.1.3
 ```
 
-**NOTE: The generator requires extra setup before it is functioning properly. See [setup](#setup) section**
+**NOTE: The generator requires extra setup before it is functioning properly. See [setup](#setup) section.**
 
 # The Problem
 Let's start with a basic Blazor solution. There are probably 3 projects `Shared`, `Server` and `Client`. Somewhere in the `Server` project there is a piece of code like this:
@@ -19,7 +19,6 @@ Let's start with a basic Blazor solution. There are probably 3 projects `Shared`
 @rendermode InteractiveServer
 
 @inject IGreeterService GreeterService
-
 
 Enter your name:
 <input type="text" @bind="Name"/>
@@ -50,7 +49,7 @@ public class GreeterService : IGreeterService
 {
     public async Task<string> Greet(string name)
     {
-        // TODO use an AI driven blockchain stack to retrieve a personalized greeting
+        // TODO use an AI driven blockchain stack to retrieve a personalized greeting message  
         await Task.Delay(200);
         
         return $"Hello, {name}!";
@@ -73,7 +72,7 @@ public class GreeterBlazorService : IGreeterService
     
     public async Task<string> Greet (string name)
     {
-        string path = $"/BlazorServices/GreeterService/Greet?name={name}";
+        string path = $"/GreeterService/Greet?name={name}";
         return await HttpClient.GetStringAsync(path);
     }
 	
@@ -84,18 +83,14 @@ Make sure to also add the new service to blazor dependencies in client project
 
 *Client / Program.cs*
 ```csharp
-...
 builder.Services.AddScoped<IGreeterService, GreeterBlazorService>();
-...
 ```
 
-And then add appropriate endpoint mapping for `/BlazorServices/GreeterService/Greet` either through MVC or minimal APIs:
+And then add appropriate endpoint mapping for `/GreeterService/Greet` either through MVC or minimal APIs:
 
 *Server / Program.cs*
 ```csharp 
-...
 app.MapGet("/GreeterService/Greet", ([FromQuery] string name, [FromServices] IGreeterService service) => service.Greet(name));
-...
 ```
 
 
@@ -104,22 +99,22 @@ This code gets redundant very quickly, epically if you are moving many component
 # The Solution
 After installing and [setting up](#setup) BlazorServiceGenerator you can mark an interface with `[BlazorService]` attribute. This will auto generate all previous boilerplate including:
 * `HttpClient` based service implementation
-* Adding service as dependency
-* Endpoint mappings
+* Adding service as dependency to `Client` project
+* Endpoint mappings for `Server` project
 
 *Shared / IGreeterService.cs*
 ```csharp
 [BlazorService]
 public interface IGreeterService
 {
-    ...
+    // ...
 }
 ```
 
 # Setup
 After adding the generator to the `Shared` project. There will be a one time setup process to make sure the generator works properly.
 
-First: make sure the project `Shared` has `Microsoft.AspNetCore.App` a dependency.
+First: make sure the `Shared` project has *framework reference* for `Microsoft.AspNetCore.App`.
 
 *Shared.csproj*
 ```xml
@@ -147,7 +142,7 @@ Third: Add blazor service dependencies to `Client` project.
 builder.Services.AddBlazorServices();
 ```
 
-Finally: 
+Finally: Add endpoint mapping to `Server` project.
 
 *Server / Program.cs*
 ```csharp
