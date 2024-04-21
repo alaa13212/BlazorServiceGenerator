@@ -42,7 +42,8 @@ public class BlazorServiceModel
 			
 			writer.WriteLine($"public {ClassName}(System.Net.Http.HttpClient httpClient)");
 			writer.OpenBlock(() => writer.WriteLine("HttpClient = httpClient;"));
-		
+			writer.Space();
+			
 			foreach (MethodModel methodModel in Methods)
 			{
 				methodModel.AppendModelCode(writer, SimpleName);

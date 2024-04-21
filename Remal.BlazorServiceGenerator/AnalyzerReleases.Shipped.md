@@ -6,7 +6,7 @@
 ---------|----------|----------|-----------------------------------------------
  BS0001  | Design   | Error    | All BlazorService methods must be await-able. 
  BS0002  | Design   | Error    | Member must be a method.                      
- BS0003  | Design   | Error    | Return Type must be serializable.             
+ BS0003  | Design   | Error    | Return type must be serializable.             
  BS0004  | Design   | Error    | Method parameter must be serializable.        
- BS0005  | Design   | Error    | Method mya not be generic.                    
+ BS0005  | Design   | Error    | Method may not be generic.                    
 

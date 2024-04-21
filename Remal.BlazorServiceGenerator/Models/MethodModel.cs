@@ -34,7 +34,7 @@ public class MethodModel
 
     public void AppendModelCode(CodeWriter writer, string serviceName)
     {
-        writer.WriteLine($"public async {ReturnType.Name} {Name} (");
+        writer.Write($"public async {ReturnType.Name} {Name} (");
         
         
         bool isFirst = true;
@@ -47,7 +47,7 @@ public class MethodModel
             isFirst = false;
         }
 
-        writer.WriteLine(")");
+        writer.Write(")\n");
         writer.OpenBlock(() =>
         {
             PrepareEndpointCode(writer, serviceName);
