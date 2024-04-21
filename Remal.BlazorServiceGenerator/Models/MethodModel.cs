@@ -34,6 +34,7 @@ public class MethodModel
 
     public void AppendModelCode(CodeWriter writer, string serviceName)
     {
+        writer.Indent();
         writer.Write($"public async {ReturnType.Name} {Name} (");
         
         
